@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Producto</title>
+            {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Producto</h1>
+    
+    {% if form.instance.pk %}
+        <p>Estás editando el producto <strong>{{ form.instance.nombre }}</strong></p>
+    {% else %}
+        <p>Estás creando un nuevo producto.</p>
+    {% endif %}
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Muestra los campos del formulario -->
+        <button type="submit">{% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}</button>
+    </form>
+
+    <br>
+    <a href="{% url 'listar_productos' %}">Volver a la lista de productos</a>
+</body>
+</html>
